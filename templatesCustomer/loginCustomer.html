@@ -6,6 +6,8 @@ PizzaLife
 {% endblock title %}
  
 {% block css %}
+<style>
+
   label[for="id_username"]{ 
          font-size: 0;
    }
@@ -22,49 +24,93 @@ label[for="id_password"]{
        font-size: 20px;
         
    }
+
+.dropshadow{
+  filter: drop-shadow(10px 10px 4px gray);
+}
+
+.boxshadow{
+  box-shadow:0px 0px 5px   gray ;
+ 
+  
+}
+
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+@media only screen and (max-width: 774px) {
+ .center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+}
+</style>
+
 {% endblock css %}
 
 {% block body %}
 
 
-<div class="container-fluid  ">
-    <div class="row py-3 my-5   ">
-         <div class="col-12 col-md-4 pl-5 ">
-             <div class="pl-3"><img src="/static/images/Logo.png" alt="PizzaLife"  class="img-fluid pl-3 mr-auto pl-lg-5 ml-lg-5 w-75 h-75 "></div>
-            
-        </div>
+<div class="container   ">
+  <div class="container px-5 pb-5">
 
+      <div class="px-5">
+            <div class="row px-5  "> 
+                <div class="col-12  ">
+                  <div class="form-style-8 ">
+                  <div class="row ">
+                    <div class="col-12 col-md-5 bg-warning boxshadow ">
+                    <img src="/static/images/Logo.png" alt="PizzaLife" height="300px" width="300px" class="dropshadow  center  "> 
+                    </div>
+                    <div class="col-12 col-md-7">
 
-        <div class="col-12 col-md-8 px-5 ">
-            <div class="px-lg-5 mx-lg-5">
-                <h3 class="font-weight-light text-center">Log In</h3>
-                <div class="form-style-8">
-                     <form class=" px-lg-5 mx-lg-5 " method="POST"> 
-                        {% csrf_token %}
+                      <div class=" py-5 mt-3 ">
+                        <h3 class="font-weight-light text-center">Log In</h3> 
+                            <form class="mx-5 px-5"   method="POST"> 
+                                {% csrf_token %}
+                                
+                              {% for f in fm %}
+                                  {{f.label_tag}} {{f}} <p class="text-danger font-weight-light">{{f.errors | striptags}}</p> <br><br>
+                              {% endfor %}
+                                
+            <div class="text-center pt-3"><button type="submit" class="btn btn-dark d-block w-100 shadow">Login</button></div>
+                              
+                                <div class="text-danger">
+                                      {% if fm.non_field_errors %}
+                                  {% for error in fm.non_field_errors %}
+                                    {{error}}
+                                  {% endfor %}
+                                {% endif %}
+                                </div>
+          
+                            </form>
+                    
                         
-                      {% for f in fm %}
-                          {{f.label_tag}} {{f}} <p class="text-danger font-weight-light">{{f.errors | striptags}}</p> <br><br>
-                      {% endfor %}
-                         
-    <div class="text-center pt-3"><button type="submit" class="btn btn-dark d-block w-100 shadow">Login</button></div>
-                       
-                         <div class="text-danger">
-                               {% if fm.non_field_errors %}
-                          {% for error in fm.non_field_errors %}
-                            {{error}}
-                          {% endfor %}
-                        {% endif %}
-                         </div>
-   
-               </form>
-                </div>
+              <h5 class="text-center pt-2" >not a user? <a href="signup" style="text-decoration: none;">Signup!</a></h5>
+                        </div>
+
+                    </div>
+                  </div>
+                  </div>
+                  
+                  
                 
-       <h5 class="text-center pt-2" >not a user? <a href="signup" style="text-decoration: none;">Signup!</a></h5>
+                    
+                </div>
+              
             </div>
-            
-        </div>
-       
-    </div>
+      </div>
+  </div>
+   
 </div>
 
 
