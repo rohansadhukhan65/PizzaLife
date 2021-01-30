@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+PizzaLife
+{% endblock title %}
+
+{% block body %}
+
+
+<div class="container-fluid  ">
+    <div class="row py-3 my-5   ">
+         <div class="col-12 col-md-4 pl-5 ">
+             <div class="pl-3 pt-md-5 mt-md-5"><img src="/static/images/Logo.png" alt="PizzaLife"  class="img-fluid pl-3 mr-auto pl-lg-5 ml-lg-5 w-75 h-75 "></div>
+            
+        </div>
+
+
+        <div class="col-12 col-md-8 px-5 ">
+            <div class="px-lg-5 mx-lg-5">
+                <h3 class="font-weight-light text-center">Sign Up</h3>
+                 <div class="form-style-8">
+
+                        <form class=" px-lg-5 mx-lg-5 " method="POST">  
+                  {% csrf_token %}
+                  <table >
+                    {% for fm in Signform %}
+                      {{fm.label_tag}} {{fm}} <p class="text-danger font-weight-light">{{fm.errors | striptags}}</p> <br> <br>
+                    {% endfor %}
+                    
+                  </table >
+                                
+               <button type="submit" class="btn btn-dark d-block w-100 shadow">Sing Up</button>
+                               
+              </form>
+
+                </div>
+               
+            </div>
+            
+        </div>
+       
+    </div>
+</div>
+
+
+{% endblock body %}

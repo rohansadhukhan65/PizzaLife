@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+PizzaLife
+{% endblock title %}
+
+{% block body %}
+
+ <div class="container  py-5 my-5 px-lg-5 ">
+     
+    <h2 class="text-center font-weight-light">FeedBack</h2>
+    <div class="px-lg-5 mx-lg-5">
+        <div class="form-style-8 px-lg-5">
+            <form action="" method="POST" class="px-lg-5 mx-lg-5">
+           {% csrf_token %}
+        <table class="text-center">
+            <div class="form-group">
+                {{feedbForm.name.label}}
+                {{feedbForm.name}}
+            </div>
+            <div class="form-group">
+                {{feedbForm.email.label}}
+               {{feedbForm.email}}
+            </div>
+            <div class="form-group">
+               {{feedbForm.feedback.label}}
+                {{feedbForm.feedback}}
+            </div>    
+        </table>
+       <input type="submit" class="btn btn-dark d-block w-100 shadow" value="FeedBack!">
+    </form>
+        </div>
+    </div>
+    
+    
+
+     
+ </div>
+
+
+{% endblock body %}
+

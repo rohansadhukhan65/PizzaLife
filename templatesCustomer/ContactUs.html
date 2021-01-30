@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+PizzaLife
+{% endblock title %}
+
+{% block body %}
+  <div class="container py-5 my-5  ">
+      <div class="px-lg-5 mx-lg-5">
+             <h2 class="font-weight-light text-center">Contact Us</h2>
+             <div class="px-lg-5 mx-lg-5">
+              <div class="form-style-8 px-lg-5">
+           <form   method="POST" class="px-lg-5">
+          {% csrf_token %}
+            {{fm.as_p}}
+            <button type="submit" class="btn btn-dark d-block w-100 shadow">Lets Talk</button>
+      </form>
+      </div>
+      </div>
+      </div>
+     
+      
+      
+  </div>
+    
+
+
+
+{% endblock body %}
