@@ -44,16 +44,14 @@
       padding: 50px;
       font-size: 20px;
     }
-
-     .form-style-8{
+ .form-style-8{
 	font-family: 'Open Sans Condensed', arial, sans;
 	width: 100%;
-	padding: 30px;
-	background: #000000;
-  color:black;
-	margin: 0px auto;
+	padding:  0px;
+	background: #FFFFFF;
+  border-radius: 10%;
+	margin: 50px auto;
   font-weight: bold;
-  border-radius: 3%;
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -78,9 +76,9 @@
 	outline: none;
 	display: block;
 	width: 100%;
-	padding: 7px;
+	padding: 0px;
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ffc107;
 	background: transparent;
 	margin-bottom: 10px;
 	font: 16px Arial, Helvetica, sans-serif;
@@ -97,8 +95,8 @@
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{
-  background: -webkit-linear-gradient(left, #0e0206, #ffe60060);
-  background: linear-gradient(to right, #000000, #ffe60060);
+  background: -webkit-linear-gradient(  #ffbb33, #ff8800);
+  
   font-family: 'Roboto', sans-serif;
 }
   </style>
@@ -166,16 +164,16 @@ body{
   <!-- Start Of Body-->
 
   <div class="container ">
-      <div class="py-5 my-5 ">
-          <div class="form-style-8 bg-light">
-     <form class=" px-lg-5 mx-lg-5 " method="POST" action="{%url 'Customer:admin_add_product'%}" enctype="multipart/form-data"> 
+      <div class="  ">
+          <div class="form-style-8 py-5 bg-light">
+     <form class=" px-5 mx-5 " method="POST" action="{%url 'Customer:admin_add_product'%}" enctype="multipart/form-data"> 
                         {% csrf_token %}
                         
                       {% for f in product_frm %}
                           {{f.label_tag}} {{f}} <p class="text-danger font-weight-light">{{f.errors | striptags}}</p> <br><br>
                       {% endfor %}
                       
-    <div class="text-center pt-3"><button type="submit" class="btn btn-dark d-block w-100 shadow">Add Product</button></div>
+                    <div class="text-center pt-3"><button type="submit" class="btn btn-warning d-block w-100 shadow">Add Product</button></div>
                        
                          <div class="text-danger">
                                {% if fm.non_field_errors %}

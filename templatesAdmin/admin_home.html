@@ -38,11 +38,15 @@
 
   <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-body{
-  background: -webkit-linear-gradient(left, #0e0206, #ffe60060);
-  background: linear-gradient(to right, #000000, #ffe60060);
+ body{
+  background: -webkit-linear-gradient(  #ffbb33, #ff8800);
+  
   font-family: 'Roboto', sans-serif;
 }
+
+
+
+
     div.sticky {
       position: -webkit-sticky;
       position: sticky;
@@ -51,11 +55,57 @@ body{
       font-size: 20px;
     }
 
+
+ .form-style-8{
+	font-family: 'Open Sans Condensed', arial, sans;
+	width: 100%;
+	padding:  0px;
+	background: #FFFFFF;
+  border-radius: 10%;
+	margin: 50px auto;
+  font-weight: bold;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+
+}
+
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select 
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	display: block;
+	width: 100%;
+	padding: 0px;
+	border: none;
+	border-bottom: 1px solid #ffc107;
+	background: transparent;
+	margin-bottom: 10px;
+	font: 16px Arial, Helvetica, sans-serif;
+	height: 45px;
+}
+.form-style-8 textarea{
+	resize:none;
+	overflow: hidden;
+}
+
     
   </style>
 </head>
 
-<body class="bg-warning">
+<body  >
 
 
 
@@ -115,13 +165,14 @@ body{
 
 <div class="container text-center ">
     <div class="pt-5 mt-5 py-5 my-5">
-        <h2>Admin Menu</h2>
+        <h2 class="text-light">Admin Menu</h2>
+        <hr class="bg-light">
           <div class="row pt-5 mt-5">
         <div class="col-12 col-md-6">
-            <a href="admin_add_product"><button class="btn btn-dark w-50" style="height: 200px;">Add Products</button></a>
+            <a href="admin_add_product"><button class="btn btn-light w-50" style="height: 200px;">Add Products</button></a>
         </div>
         <div class="col-12 col-md-6 pt-2 pt-md-0">
-            <a href="admin_show_orders"><button class="btn btn-dark w-50" style="height: 200px;">Show Orders </button></a>
+            <a href="admin_show_orders"><button class="btn btn-light w-50" style="height: 200px;">Show Orders </button></a>
         </div>
     </div>
     </div>
