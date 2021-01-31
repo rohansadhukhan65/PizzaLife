@@ -8,6 +8,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from math import ceil
 
+
+
+# Email configuration
+from django.conf import settings
+from django.core.mail import send_mail
+# Email configuration end
+
+
 # Create your views here For Customer.
 # home
 
@@ -94,6 +102,14 @@ def Checkout(request):
         order.save()
         thank = True
         id = order.order_ids
+
+       
+
+        subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
+        message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {items_json} and will contact you as soon as your order is shipped'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email ]
+        send_mail( subject, message, email_from, recipient_list )
         return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,})
     print('outer if')
     return render(request, 'Checkout.html')
