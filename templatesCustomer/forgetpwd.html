@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+PizzaLife
+{% endblock title %}
+
+{% block body %}
+  <div class="container py-5 my-5  ">
+      <div class="px-lg-5 mx-lg-5">
+             <h2 class="font-weight-light text-center">Forget Password</h2>
+             <div class="px-lg-5 mx-lg-5">
+              <div class="form-style-8 px-lg-5">
+           <form   method="POST" class="px-lg-5 py-5" action="{%url 'Customer:fpwd'%}">
+          {% csrf_token %}
+             <input type="email" id="fpwd" name="forgetpwdemail" placeholder="Enter Your Email">
+            <button type="submit" class="btn btn-warning d-block w-100 shadow">Send OTP</button>
+      </form>
+      </div>
+      </div>
+      </div>
+     
+      
+      
+  </div>
+    
+
+
+
+{% endblock body %}
+
+
+

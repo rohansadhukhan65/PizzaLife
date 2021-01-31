@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+PizzaLife
+{% endblock title %}
+
+{% block body %}
+  <div class="container py-5 my-5  ">
+      <div class="px-lg-5 mx-lg-5">
+             <h2 class="font-weight-light text-center">Reset Password</h2>
+             <div class="px-lg-5 mx-lg-5">
+              <div class="form-style-8 px-lg-5">
+           <form   method="POST" class="px-lg-5 py-5" action="{%url 'Customer:pwdreset'%}" onsubmit = "return checkPassword(this)">
+          {% csrf_token %}
+             <input type="password" id="npwd" name="newPwd" placeholder="Enter Your New Password">
+             <input type="password" id="npwd2" name="newPwd2" placeholder="ReEnter Your New Password">
+            <button type="submit" class="btn btn-warning d-block w-100 shadow">Send OTP</button>
+      </form>
+      </div>
+      </div>
+      </div>
+     
+      
+      
+  </div>
+    
+
+
+
+{% endblock body %}
+
+
+{% block js %}
+
+ 
+<script> 
+          
+            // Function to check Whether both passwords 
+            // is same or not. 
+            function checkPassword(form) { 
+                password1 = form.newPwd.value; 
+                password2 = form.newPwd2.value; 
+  
+                // If password not entered 
+                if (password1 == '') 
+                    alert ("Please enter Password"); 
+                      
+                // If confirm password not entered 
+                else if (password2 == '') 
+                    alert ("Please enter confirm password"); 
+                      
+                // If Not same return False.     
+                else if (password1 != password2) { 
+                    alert ("\nPassword did not match: Please try again...") 
+                    return false; 
+                } 
+  
+                // If same return True. 
+                else{ 
+                   
+                    return true; 
+                } 
+            } 
+</script> 
+
+
+
+{% endblock js %}

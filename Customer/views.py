@@ -16,6 +16,8 @@ from django.core.mail import send_mail
 # Email configuration end
 
 
+from django.contrib.auth.models import User
+import random
 # Create your views here For Customer.
 # home
 
@@ -112,7 +114,7 @@ def Checkout(request):
         send_mail( subject, message, email_from, recipient_list )
         return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,})
     print('outer if')
-    return render(request, 'Checkout.html')
+    return render(request, 'Checkout.html', {'thank': False,'name': request.user,})
     
 
 
@@ -234,4 +236,104 @@ def ShowOrders(request):
 
 
 
- 
+
+
+# ===========================================  forget password system ======================================
+def fpwd(request):
+    
+    Uemail = request.POST.get('forgetpwdemail', '')
+    # print()
+    # print()
+    # print('========',Uemail)
+    # print()
+    # print()
+    # print()
+    if Uemail:
+        getuser = User.objects.filter(username__icontains=Uemail).first()
+    else:
+        getuser = 0
+    if getuser:
+        
+
+        # Getting OTP and id
+        request.session['OTP'] = random.randint(000000,999999)
+        request.session['Uid'] = getuser.id
+        request.session.set_expiry(0)
+        otp = request.session['OTP'] 
+        
+
+        # Sending OTP in Email
+        subject = f'PizzaLife Password Reset OTP '
+        message = f'{getuser.first_name} Your OTP is \n\n {otp}  '
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [Uemail ]
+        send_mail(subject, message, email_from, recipient_list)
+        
+        return HttpResponseRedirect('/otpverify/')
+    print()
+    print()
+    print()
+    print()
+
+
+    return render(request, 'forgetpwd.html' )
+
+
+
+
+def otpverify(request):
+    Uotp = request.POST.get('otp', '')
+    print()
+    print()
+    print()
+    print()
+    print('User OTP ==', Uotp)
+    print('OTP==', request.session['OTP'])
+    print('OTP==', request.session['Uid'])
+    if Uotp == str(request.session['OTP']): 
+        print("Matched !")
+        request.session['OTP'] = ''
+        eru=''
+        return HttpResponseRedirect('/pwdreset/')
+    else:
+        eru = 'OTP Not Matched !'
+    print()
+    print()
+    print()
+
+    return render(request, 'otppage.html',{'errmsg':''})
+
+
+
+
+def pwdreset(request):
+    print()
+    print()
+    print()
+    print()
+    print(request.POST.get('newPwd', ''))
+
+    newPwd = request.POST.get('newPwd', '')
+
+    if newPwd:
+        user = User.objects.get(id__icontains=request.session['Uid'])
+    else:
+        user = 0
+        
+    if user:
+        print(user.password)
+        user.set_password(newPwd)
+         
+        user.save()
+        request.session['Uid'] = ''
+
+        return HttpResponseRedirect('/loginCustomer/')
+
+    print('Uid==', request.session['Uid'])
+    print()
+    print()
+    print()
+    print()
+
+    return render(request, 'resetPwd.html' )
+    
