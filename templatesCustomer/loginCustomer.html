@@ -46,7 +46,7 @@ label[for="id_password"]{
 
 
 
-@media only screen and (max-width: 774px) {
+@media only screen and (max-width: 990px) {
  .center{
   position: absolute;
   top: 50%;
@@ -63,29 +63,29 @@ label[for="id_password"]{
 
 
 <div class="container   ">
-  <div class="container px-md-5 pb-md-5">
+  <div class="container px-lg-5 pb-lg-5">
 
       <div class="px-5">
-            <div class="row px-md-5  "> 
+            <div class="row px-lg-5  "> 
                 <div class="col-12  ">
                   <div class="form-style-8 ">
                   <div class="row ">
-                    <div class="col-12 col-md-5 bg-warning boxshadow ">
+                    <div class="col-12 col-lg-5 bg-warning boxshadow ">
                     <img src="/static/images/Logo.png" alt="PizzaLife" height="300px" width="300px" class="dropshadow  center  "> 
                     </div>
-                    <div class="col-12 col-md-7">
+                    <div class="col-12 col-lg-7">
   
                       <div class=" py-5 mt-3 ">
                         <h1 class=" text-warning text-center" style="font-size: 60px;"><i class=" dropshadow2 fas fa-user"></i></h1> 
                        <!--  <h3 class="  text-center">Login</h3>  -->
-                            <form class="mx-md-5 px-5"   method="POST"> 
+                            <form class="mx-lg-5 px-5"   method="POST"> 
                                 {% csrf_token %}
                                 
                               {% for f in fm %}
                                   {{f.label_tag}} {{f}} <p class="text-danger font-weight-light">{{f.errors | striptags}}</p> <br><br>
                               {% endfor %}
                                 
-            <div class="text-center pt-3"><button type="submit" class="btn btn-dark d-block w-100 shadow">Login</button></div>
+            <div class="text-center pt-3"><button type="submit" class="btn btn-warning d-block w-100 shadow">Login</button></div>
                               
                                 <div class="text-danger">
                                       {% if fm.non_field_errors %}

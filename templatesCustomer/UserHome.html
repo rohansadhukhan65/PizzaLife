@@ -45,6 +45,10 @@
       font-size: 20px;
     }
 
+
+.shadowmy:hover{
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+}
     
   </style>
 </head>
@@ -120,20 +124,27 @@
       <!-- Start pizza  Menu----------------------------------------------------->
        <h3 class=" font-weight-light pb-3 mt-5">Pizza Menu <i class="fas fa-pizza-slice"></i></h3>
         <hr>
-        {% for i in product %} 
-        {% if i.category == "Pizza Menu"%}
-        <div class="card  " style="width: 14rem;display:inline-block;"  >
+        <div class="row">
          
-            <img class="card-img-top" src="{{i.image.url}}" height="100px" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title" id="namepr{{i.id}}"> {{i.product_name}}  </h5>
-            $ {{i.price}}
-            <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-            <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
-          </div>
+              {% for i in product %} 
+              {% if i.category == "Pizza Menu"%}
+               <div class="col-3"> 
+                <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+                
+                    <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
+                  <div class="card-body pt-0 mt-0">
+                    <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
+                    $ <span class="font-weight-bold"> {{i.price}}</span>
+                    <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
+                    <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                  </div>
+                </div>
+               </div>
+              {% endif %}
+              {% endfor %} 
+         
         </div>
-        {% endif %}
-        {% endfor %} 
+        
         <!-- end Start pizza  Menu----------------------------------------------------->
 
 
@@ -143,19 +154,25 @@
         <!-- Start Sides Menu----------------------------------------------------->
        <h3 class=" font-weight-light pb-3 pt-5 mt-5">Sides Menu <i class="fas fa-hamburger"></i></h3>
         <hr>
+         <div class="row">
         {% for i in product %} 
         {% if i.category == "Sides Menu"%}
-        <div class="card  " style="width: 14rem;display:inline-block;"  >
-          <img class="card-img-top" src="{{i.image.url}}" height="100px" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title" id="namepr{{i.id}}"> {{i.product_name}}  </h5>
-            $ {{i.price}}
-            <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-            <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
-          </div>
-        </div>
+                <div class="col-3"> 
+                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+                
+                    <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
+                    <div class="card-body pt-0 mt-0">
+                      <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
+                      $ <span class="font-weight-bold"> {{i.price}}</span>
+                      <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                    </div>
+                </div>
+               </div>
         {% endif %}
         {% endfor %} 
+
+        </div>
         <!-- end Sides Menu----------------------------------------------------->
 
 
@@ -165,19 +182,26 @@
         <!-- Start Drink Menu----------------------------------------------------->
        <h3 class=" font-weight-light pb-3 pt-5 mt-5">Drink Menu <i class="fas fa-glass-martini-alt"></i></h3>
         <hr>
-        {% for i in product %} 
-        {% if i.category == "Drink Menu"%}
-        <div class="card  " style="width: 14rem;display:inline-block;"  >
-          <img class="card-img-top" src="{{i.image.url}}" height="100px" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title" id="namepr{{i.id}}"> {{i.product_name}}  </h5>
-            $ {{i.price}}
-            <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-            <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
-          </div>
+        <div class="row">
+
+            {% for i in product %} 
+            {% if i.category == "Drink Menu"%}
+            <div class="col-3"> 
+                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+                
+                    <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
+                    <div class="card-body pt-0 mt-0">
+                      <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
+                      $ <span class="font-weight-bold"> {{i.price}}</span>
+                      <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                    </div>
+                </div>
+               </div>
+            {% endif %}
+            {% endfor %} 
         </div>
-        {% endif %}
-        {% endfor %} 
+        
         <!-- end Drink Menu----------------------------------------------------->
 
 
@@ -186,19 +210,25 @@
         <!-- Start Desert Menu----------------------------------------------------->
        <h3 class=" font-weight-light pb-3 pt-5 mt-5">Desert Menu <i class="fas fa-cookie"></i></h3>
         <hr>
-        {% for i in product %} 
-        {% if i.category == "Desert Menu"%}
-        <div class="card  " style="width: 14rem;display:inline-block;"  >
-          <img class="card-img-top" src="{{i.image.url}}" height="100px" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title" id="namepr{{i.id}}"> {{i.product_name}}  </h5>
-            $ {{i.price}}
-            <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-            <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
-          </div>
+        <div class="row">
+            {% for i in product %} 
+            {% if i.category == "Desert Menu"%}
+            <div class="col-3"> 
+                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+                
+                    <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
+                    <div class="card-body pt-0 mt-0">
+                      <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
+                      $ <span class="font-weight-bold"> {{i.price}}</span>
+                      <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                    </div>
+                </div>
+               </div>
+            {% endif %}
+            {% endfor %} 
         </div>
-        {% endif %}
-        {% endfor %} 
+        
         <!-- end Desert Menu----------------------------------------------------->
 
 
