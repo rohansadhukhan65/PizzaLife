@@ -1,10 +1,11 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 import random
 
 # Create your  Databsae models here.
 
 rando = random.randint(100000000000000 , 999999999999999)
+randocart = random.randint(100000000000000 , 999999999999999)
 ############################################### Product Model ##########################################################
 class Product(models.Model):
     product_id = models.AutoField
@@ -47,6 +48,21 @@ class Orders(models.Model):
     city = models.CharField(max_length=50, default="")
     state = models.CharField(max_length=50, default="")
     zip_code = models.CharField(max_length=50, default="")
+
+
+
+
+
+######################################################## Cart Model #####################################################
+class Cart(models.Model):
+    id = models.AutoField
+    cart_ids = models.CharField(   max_length=24, default=randocart)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,   blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    qty = models.IntegerField(default=0)
+    
+ 
+
 
 
     

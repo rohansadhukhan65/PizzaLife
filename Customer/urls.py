@@ -30,6 +30,12 @@ urlpatterns = [
     path('admin_show_orders/', views.ShowOrders, name='admin_show_orders'),
 
 
+    # ajax
+
+    path('cart/', views.cart, name='cart'),
+
+
+
     
 ]  
 

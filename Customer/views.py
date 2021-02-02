@@ -337,3 +337,49 @@ def pwdreset(request):
 
     return render(request, 'resetPwd.html' )
     
+
+
+
+
+
+
+
+# =============  Ajax
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.db.models import Subquery , Q
+
+
+@csrf_exempt
+def cart(request):
+    proId = request.POST['pid']
+    custId = request.POST['cid']
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    print(proId)
+    print(custId)
+    gt_user = User.objects.filter(id__icontains= custId ).first()
+    print(gt_user.username)
+    gt_prod = Product.objets.filter(id__icontains= proId ).first()
+    print(gt_prod)
+    print()
+    ifExist = Cart.objects.filter(Q(product=gt_prod) & Q(user=gt_user)).first()
+    
+    if ifExist:
+        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'product': gt_prod, 'user': gt_user, 'qty': 1})
+    else:
+        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'product': gt_prod, 'user': gt_user, 'qty': 1})
+
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    return JsonResponse({'cartdata': 'baner'})

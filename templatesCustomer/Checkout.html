@@ -179,11 +179,12 @@
                       </div>
                   </div>
                 
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-warning   w-50 ">Place Order</button> 
+                  <div class="text-center" onclick="clearcart()">
+                    <button type="submit" class="btn btn-warning   w-50 " onclick="clearcart()">Place Order</button> 
                   </div>
             
             </form>
+            
          </div>
          <!-- Enter Details end -->
 
@@ -332,7 +333,18 @@
           }
 
           $('#itemsJson').val(proName);
-           localStorage.clear(); 
+          //  localStorage.clear(); 
+
+
+
+
+
+
+          function clearcart(){
+
+  localStorage.clear(); 
+ 
+}
         </script>
 </body>
 
