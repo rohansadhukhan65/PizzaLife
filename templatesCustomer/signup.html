@@ -71,12 +71,14 @@ label[for="id_password"]{
                 <div class="col-12  ">
                   <div class="form-style-8 ">
                   <div class="row ">
+                   
                     <div class="col-12 col-lg-5 bg-warning boxshadow ">
                     <img src="/static/images/Logo.png" alt="PizzaLife" height="300px" width="300px" class="dropshadow  center  "> 
                     </div>
                     <div class="col-12 col-lg-7">
 
                       <div class=" py-5 mt-3 ">
+                        <h5 class="text-success text-center">{{msg}}</h5>
                         <h1 class=" text-warning text-center" style="font-size: 60px;"><i class="dropshadow2 fas fa-user-plus"></i></h1> 
                           <form class=" mx-lg-5 px-5 " method="POST">  
                               {% csrf_token %}

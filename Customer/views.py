@@ -18,11 +18,31 @@ from django.core.mail import send_mail
 
 from django.contrib.auth.models import User
 import random
+
+import uuid
+
 # Create your views here For Customer.
 # home
 
 
 def home(request):
+    # print(request.META['HTTP_HOST'])
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    print('hi')
+    print(request.META['HTTP_HOST'])
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+    
     return render(request, 'index.html')
 
 
@@ -32,9 +52,22 @@ def signup(request):
     if request.method == 'POST':
         SignForm = signUp(request.POST)
         if SignForm.is_valid():
-            print('posted')
+             
             SignForm.save()
-            return HttpResponseRedirect('/loginCustomer')
+
+            print()
+            user = User.objects.filter(username=SignForm.cleaned_data['username']).first()
+            user.is_active = 0
+            user.save()
+            link = str(request.META['HTTP_HOST'])+'/loginCustomerverification/'+str(uuid.uuid4())
+
+            subject = f'PizzaLife User Verification ! '
+            message = f'Please Login From the Link Below and Veriify Your Email \n Link : {link}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [SignForm.cleaned_data['username']]
+            send_mail( subject, message, email_from, recipient_list )
+            
+            return render(request, 'signup.html', {'Signform': SignForm,'msg':'Please Confirm Your Email by login with the email link'})
     else:
         SignForm = signUp()
         print('nehi gaya')
@@ -47,6 +80,7 @@ def loginCustomer(request):
     if request.method == 'POST':
         fm = AuthenticationForm(request=request, data=request.POST)
         if fm.is_valid():
+
             uname = fm.cleaned_data['username']
             upass = fm.cleaned_data['password']
             user = authenticate(username=uname, password=upass)
@@ -57,6 +91,32 @@ def loginCustomer(request):
     else:
         fm = AuthenticationForm()
     return render(request, 'loginCustomer.html', {'fm': fm})
+
+
+
+# login for active
+def loginCustomerverify(request, ik):
+
+    if request.method == 'POST':
+
+        fmm = AuthenticationForm(request=request, data=request.POST)
+
+        gt_user = User.objects.filter(username=request.POST.get('username', '')).first()
+        gt_user.is_active = 1
+        gt_user.save()
+        if fmm.is_valid():
+            uname = fmm.cleaned_data['username']
+            upass = fmm.cleaned_data['password']
+            user = authenticate(username=uname, password=upass)
+            if user is not None:
+                login(request, user)
+                
+                return HttpResponseRedirect('/UserHome')
+
+
+    else:
+        fmm = AuthenticationForm()
+    return render(request, 'loginCustomer.html', {'fm': fmm})
 
 
 
@@ -81,40 +141,60 @@ def userhome(request):
 
 #CheckOut
 def Checkout(request):
-    if request.method == "POST":
-        print('we are in post')
-        items_json = request.POST.get('itemsJson', '')
-        print(items_json)
-        name = request.POST.get('name', '')
-        print(name)
-        email = request.POST.get('email', '')
-        print(email)
-        address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
-        print(address)
-        city = request.POST.get('city', '')
-        print(city)
-        state = request.POST.get('state', '')
-        print(state)
-        zip_code = request.POST.get('zip_code', '')
-        print(zip_code)
-        phone = request.POST.get('phone', '')
-        print(phone)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            print('we are in post')
+            items_json = request.POST.get('itemsJson', '')
+            print(items_json)
+            name = request.POST.get('name', '')
+            print(name)
+            email = request.POST.get('email', '')
+            print(email)
+            address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
+            print(address)
+            city = request.POST.get('city', '')
+            print(city)
+            state = request.POST.get('state', '')
+            print(state)
+            zip_code = request.POST.get('zip_code', '')
+            print(zip_code)
+            phone = request.POST.get('phone', '')
+            print(phone)
 
-        order = Orders(items_json=items_json, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone)
-        order.save()
-        thank = True
-        id = order.order_ids
+            order = Orders(items_json=items_json, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone)
+            order.save()
+            thank = True
+            id = order.order_ids
 
-       
+        
 
-        subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
-        message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {items_json} and will contact you as soon as your order is shipped'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [email ]
-        send_mail( subject, message, email_from, recipient_list )
-        return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,})
-    print('outer if')
-    return render(request, 'Checkout.html', {'thank': False,'name': request.user,})
+            subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
+            message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {items_json} and will contact you as soon as your order is shipped'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email ]
+            send_mail( subject, message, email_from, recipient_list )
+
+            get_cart = Cart.objects.filter(user=request.user)
+ 
+            Gtotal = 0
+            for c in get_cart:
+                Ptotal = int(c.product.price) * int(c.qty)
+                Gtotal += int(Ptotal)
+  
+            return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,'kart':get_cart,'gtotal':Gtotal})
+        print('outer if')
+
+        get_cart = Cart.objects.filter(user=request.user)
+
+        Gtotal = 0
+        for c in get_cart:
+            Ptotal = int(c.product.price) * int(c.qty)
+            Gtotal += int(Ptotal)
+
+
+        return render(request, 'Checkout.html', {'thank': False, 'name': request.user,'kart':get_cart,'gtotal':Gtotal})
+    else:
+        return HttpResponseRedirect('/loginCustomer')
     
 
 
@@ -422,9 +502,11 @@ def minuscart(request):
 
 @csrf_exempt
 def popover(request):
+    UIddd = request.POST['uid']
+    get_Uu = User.objects.filter(id = UIddd).first()
 
-    cartItem = Cart.objects.filter().values()
-    cartItemcount = Cart.objects.all().count()
+    cartItem = Cart.objects.filter(user=get_Uu).values()
+    cartItemcount = Cart.objects.filter(user=get_Uu).count()
 
     Citem = list(cartItem)
     print()
@@ -439,4 +521,25 @@ def popover(request):
            
 
  
-    return JsonResponse({'cart': Citem,'count':cartItemcount})
+    return JsonResponse({'cart': Citem, 'count': cartItemcount})
+    
+
+
+
+
+@csrf_exempt
+def clCart(request):
+ 
+    UIdd = request.POST['uid']
+    get_U = User.objects.filter(id = UIdd).first()
+    gt_Cprodd = Cart.objects.filter(user=get_U)
+ 
+    for k in gt_Cprodd:
+        k.delete()
+ 
+
+     
+
+   
+ 
+    return JsonResponse( {'hi':'hi'})

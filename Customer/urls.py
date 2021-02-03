@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('loginCustomer/', views.loginCustomer, name='Login'),
+    path('loginCustomerverification/<uuid:ik>', views.loginCustomerverify, name='loginCustomerverify'),
     path('signup/', views.signup, name='signup'),
     path('feedback/', views.feedback, name='feedback'),
     path('UserHome/', views.userhome, name='userhome'),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('addcart/', views.addcart, name='addcart'),
     path('minuscart/', views.minuscart, name='minuscart'),
     path('popover/', views.popover, name='popover'),
+    path('clCart/', views.clCart, name='clCart'),
 
 
 

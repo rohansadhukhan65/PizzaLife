@@ -1,4 +1,4 @@
- 
+ {% load mathfilters %}
 
 <!doctype html>
 <html lang="en">
@@ -51,11 +51,23 @@
       padding-left: 1000px;
     }
 
+   @media only screen and (min-width: 985px) {
+       .center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+          }
+
     @media only screen and (max-width: 985px) {
        .pad-right{
       padding-left: 10px;
     }
           }
+
+
+    
   </style>
 </head>
 
@@ -119,6 +131,8 @@
 <div class="container mt-3">
  <!--   <div class="text-center">  <img src="/static/images/Logo.png" width="200" height="200" alt="logo" loading="lazy"></div> -->
    <!-- ui card -->
+
+
     <div class="card shadow w-100"  >
       <div class="card-body">
        <div class="row">
@@ -129,8 +143,23 @@
             <hr class="bg-warning">
             <div class="my-5">
                 <ul class="list-group" id="items">
-                  <!-- chekout product list -->
+                  <li class="list-group-item" style="background-color: transparent; border-color: transparent;  ">
+
+                    {%for ku in kart %}
+                    <div class="alert alert-success" role="alert">
+                     {{forloop.counter}}. {{ku.product.product_name}} <br> Quantity : {{ku.qty}} <br> Total : Rs {{ ku.qty|mul:ku.product.price }}
+                    </div>
+                    {%endfor%}
+                   
+
+                    
+                  </li>
                 </ul>
+                  {%if gtotal == 0%}
+                 <h1 class="text-center text-danger center ">  <i class="fas fa-cart-plus"></i> Cart  Empty ! </h1>
+                  {%else%}
+                 <h3 class="text-center text-danger">Grand Total : Rs {{gtotal}} </h3>
+                 {%endif%}
             </div>
          </div>
          <!-- review items end -->
@@ -284,7 +313,7 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 
-        <script>
+       <!--  <script>
           if(localStorage.getItem('cart') == null){
             var cart = {};
           }
@@ -345,7 +374,7 @@
   localStorage.clear(); 
  
 }
-        </script>
+        </script> -->
 </body>
 
 </html>
