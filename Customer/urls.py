@@ -32,7 +32,9 @@ urlpatterns = [
 
     # ajax
 
-    path('cart/', views.cart, name='cart'),
+    path('addcart/', views.addcart, name='addcart'),
+    path('minuscart/', views.minuscart, name='minuscart'),
+    path('popover/', views.popover, name='popover'),
 
 
 

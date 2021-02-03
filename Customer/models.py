@@ -56,7 +56,8 @@ class Orders(models.Model):
 ######################################################## Cart Model #####################################################
 class Cart(models.Model):
     id = models.AutoField
-    cart_ids = models.CharField(   max_length=24, default=randocart)
+    cart_ids = models.CharField(max_length=24, default=randocart)
+    nameprod = models.CharField(max_length=90, default="")
     product = models.ForeignKey(Product, on_delete=models.CASCADE,   blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     qty = models.IntegerField(default=0)

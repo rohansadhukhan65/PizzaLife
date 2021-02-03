@@ -352,34 +352,91 @@ from django.db.models import Subquery , Q
 
 
 @csrf_exempt
-def cart(request):
+def addcart(request):
     proId = request.POST['pid']
     custId = request.POST['cid']
-    print()
-    print()
-    print()
-    print()
-    print()
-    print()
-    print(proId)
-    print(custId)
+ 
+    # print(proId)
+    # print(custId)
     gt_user = User.objects.filter(id__icontains= custId ).first()
-    print(gt_user.username)
-    gt_prod = Product.objets.filter(id__icontains= proId ).first()
-    print(gt_prod)
-    print()
-    ifExist = Cart.objects.filter(Q(product=gt_prod) & Q(user=gt_user)).first()
-    
-    if ifExist:
-        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'product': gt_prod, 'user': gt_user, 'qty': 1})
-    else:
-        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'product': gt_prod, 'user': gt_user, 'qty': 1})
+    # print(gt_user.username)
+    gt_prod = Product.objects.filter(id__icontains= proId ).first()
+    # print(gt_prod)
+    # print()
 
+
+    ifExist = Cart.objects.filter(Q(product=gt_prod) & Q(user=gt_user)).first()
+
+    qantity = 0
+
+
+    if ifExist:
+        # print('exist',ifExist.qty)
+        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'product': gt_prod, 'user': gt_user, 'qty': ifExist.qty + 1})
+        qantity = ifExist.qty+1
+       
+    else:
+        # print('not exist')
+        cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={'nameprod':gt_prod.product_name,'product': gt_prod, 'user': gt_user, 'qty': 1})
+        qantity =  1
+ 
+    return JsonResponse({'Qtity':  qantity})
+
+
+
+
+
+@csrf_exempt
+def minuscart(request):
+    proId = request.POST['pid']
+    custId = request.POST['cid']
+ 
+    # print(proId)
+    # print(custId)
+    gt_user = User.objects.filter(id__icontains= custId ).first()
+    # print(gt_user.username)
+    gt_prod = Product.objects.filter(id__icontains= proId ).first()
+    # print(gt_prod)
+    # print()
+
+    
+    ifExistm = Cart.objects.filter(Q(product=gt_prod) & Q(user=gt_user)).first()
+
+   
+
+
+    if ifExistm:
+        # print('exist', ifExistm.qty) 'product': gt_prod, 'user': gt_user,
+        if ifExistm.qty > 1 :
+            cart = Cart.objects.update_or_create(product=gt_prod, user=gt_user, defaults={ 'qty': ifExistm.qty - 1})
+            qantity = ifExistm.qty - 1
+           
+
+ 
+    return JsonResponse({'Qtity': qantity})
+
+
+
+
+
+
+@csrf_exempt
+def popover(request):
+
+    cartItem = Cart.objects.filter().values()
+    cartItemcount = Cart.objects.all().count()
+
+    Citem = list(cartItem)
     print()
     print()
     print()
+    print('item :-',Citem)
+    print(cartItemcount)
     print()
     print()
-    print()
-    print()
-    return JsonResponse({'cartdata': 'baner'})
+  
+ 
+           
+
+ 
+    return JsonResponse({'cart': Citem,'count':cartItemcount})

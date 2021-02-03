@@ -7,7 +7,7 @@ from .models import *
 
 
 class productAdmin(admin.ModelAdmin):
-    list_display = ('id','product_name', 'category', 'subcategory', 'price', 'desc', 'pub_date', 'image')
+    list_display = ('product_name', 'category', 'subcategory', 'price', 'desc', 'pub_date', 'image')
 
 
 
@@ -20,5 +20,6 @@ class order(admin.ModelAdmin):
  
 admin.site.register(Product, productAdmin)
 admin.site.register(Orders, order)
+admin.site.register(Cart)
 
 

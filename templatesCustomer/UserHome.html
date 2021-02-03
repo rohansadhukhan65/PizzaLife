@@ -49,7 +49,15 @@
 .shadowmy:hover{
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
 }
-    
+
+
+   .noti{
+      height: 25px;
+  width: 25px;
+ 
+  border-radius: 50%;
+  display: inline-block;
+   } 
   </style>
 </head>
 
@@ -97,9 +105,23 @@
         <li class="nav-item text-center  ">
           <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-dark"> Log Out</button></a>
         </li>
-        <li class="nav-item text-center">
-            <a class="nav-link text-dark"  ><button type="button" id="popcart" class="btn btn-dark" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Product Card"> Cart (<span id="cart">0</span>)</button></a>
+
+         <li class="nav-item dropdown mr-auto ml-auto">
+          <a style="text-decoration: none;" class="nav-link dropdown-toggle  " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Cart <span id="tot" class="text-center bg-danger shadow text-light noti" ></span>
+          </a>
+
+          <div class="dropdown-menu bg-warning mr-auto ml-auto " style="width: 220px;" aria-labelledby="navbarDropdownMenuLink" id="cartP">
+             
+                <!-- preview -->
+              
+          </div>
         </li>
+        
+        <!-- <li class="nav-item text-center">
+            <a class="nav-link text-dark"  ><button type="button" id="popcart" class="btn btn-dark" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Product Card"> Cart (<span id="cart">0</span>)</button></a>
+             
+        </li> -->
       </ul>
     </div>
   </nav>
@@ -128,15 +150,15 @@
          
               {% for i in product %} 
               {% if i.category == "Pizza Menu"%}
-               <div class="col-3"> 
-                <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+               <div class="col-6 col-md-3"> 
+                <div class="card mt-3 shadowmy" style="width: 12rem;"  >
                 
                     <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
                   <div class="card-body pt-0 mt-0">
                     <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                     $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                     <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                    <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark  " onclick="addcart('{{i.id}}','{{name.id}}')">Add Cart</button> </span>
+                    <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark  " onclick=" Popoverupd(),addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                   </div>
                 </div>
                </div>
@@ -157,15 +179,15 @@
          <div class="row">
         {% for i in product %} 
         {% if i.category == "Sides Menu"%}
-                <div class="col-3"> 
-                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+                <div class="col-6 col-md-3"> 
+                  <div class="card mt-3 shadowmy" style="width: 12rem;"  >
                 
                     <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
                     <div class="card-body pt-0 mt-0">
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"   onclick="Popoverupd(),addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -186,15 +208,15 @@
 
             {% for i in product %} 
             {% if i.category == "Drink Menu"%}
-            <div class="col-3"> 
-                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+            <div class="col-6 col-md-3"> 
+                  <div class="card mt-3 shadowmy" style="width: 12rem;"  >
                 
                     <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
                     <div class="card-body pt-0 mt-0">
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"  onclick="Popoverupd(),addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -213,15 +235,15 @@
         <div class="row">
             {% for i in product %} 
             {% if i.category == "Desert Menu"%}
-            <div class="col-3"> 
-                  <div class="card mt-3 shadowmy" style="width: 14rem;"  >
+            <div class="col-6 col-md-3 "> 
+                  <div class="card mt-3 shadowmy" style="width: 12rem;"  >
                 
                     <img class="card-img-top p-1" src="{{i.image.url}}" height="200px" alt="Card image cap">
                     <div class="card-body pt-0 mt-0">
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"  onclick="Popoverupd(),addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -324,7 +346,7 @@
 
 
 
-    <script>
+    <!-- <script>
 // Find out the cart items from localStorage
 if (localStorage.getItem('cart') == null) {
     var cart = {};
@@ -400,6 +422,8 @@ function updateCart(cart) {
     updatePopover(cart);
    
 }
+
+
 // If plus or minus button is clicked, change the cart as well as the display value
 $('.divpr').on("click", "button.minus", function() {
     a = this.id.slice(7, );
@@ -415,33 +439,104 @@ $('.divpr').on("click", "button.plus", function() {
     updateCart(cart);
 });
 </script>
- 
+  -->
 
 
 <script>
+$( document ).ready(function() {
+   Popoverupd();
+});
 
-  function addcart(prodid,customer){
-      console.log('Product ID');
-      console.log(prodid);
-      console.log('customer');
-      console.log(customer);
+  function addcart(prodid,customer,prodDiv){
+     
 
 
 
      $.ajax({
     type: 'POST',
     data: {'pid': prodid,'cid': customer,},
-    url: '/cart/',
+    url: '/addcart/',
      success: function (response) {
       
       // console.log(response );
-      var data = response.UndTer;
-      var output = '';
+      var data = response.Qtity;
+      console.log('Qtity')
+
+      console.log(data)
+      document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}') "  id='minus' class='btn btn-dark minus'>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-dark plus'> + </button>`    
 
 
     }
   });
   }
+
+
+  function minuscart(prodid,customer,prodDiv){
+     
+
+
+     $.ajax({
+    type: 'POST',
+    data: {'pid': prodid,'cid': customer,},
+    url: '/minuscart/',
+     success: function (response) {
+      
+      // console.log(response );
+      var data = response.Qtity;
+      console.log('Qtity')
+
+      console.log(data)
+       document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}')"  id='minus' class='btn btn-dark minus'>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-dark plus'> + </button>`       
+
+
+    }
+  });
+  }
+
+
+
+
+
+
+
+
+
+function  Popoverupd(){
+
+  $.ajax({
+    type: 'GET',
+    
+    url: '/popover/',
+     success: function (response) {
+      
+      
+      var data = response.cart;
+      console.log('Qtity')
+
+      console.log(data)
+
+       var popStr = "";
+     
+        var k= 1;
+        var itom = "<h5 class='text-center'>  Your Order's </h5><div class='mx-2 my-2 font-weight-light'>";
+         for (i = 0; i < data.length; i++){
+            itom +=  "</br>" + k+ ". ";
+              itom += `${data[i].nameprod}... Qty: ${data[i].qty}` 
+       k = k+1;
+    }
+    itom += `<div class="row mt-2  ">
+                <div class="col-6"><button class="btn btn-dark">Chekout</button></div>
+                <div class="col-6"><button class="btn btn-dark">Clear  </button></div>
+              </div>`
+
+        document.getElementById("cartP").innerHTML = itom
+        document.getElementById("tot").innerHTML = response.count
+
+    }
+
+  });  
+}
+
 </script>
 </body>
 
