@@ -27,22 +27,7 @@ import uuid
 
 def home(request):
     # print(request.META['HTTP_HOST'])
-    print()
-    print()
-    print()
-    print()
-    print()
-    print()
-    print('hi')
-    print(request.META['HTTP_HOST'])
-    print()
-    print()
-    print()
-    print()
-    print()
-    print()
-    print()
-    
+     
     return render(request, 'index.html')
 
 
@@ -56,9 +41,13 @@ def signup(request):
             SignForm.save()
 
             print()
+
+            
             user = User.objects.filter(username=SignForm.cleaned_data['username']).first()
             user.is_active = 0
             user.save()
+
+
             link = str(request.META['HTTP_HOST'])+'/loginCustomerverification/'+str(uuid.uuid4())
 
             subject = f'PizzaLife User Verification ! '
@@ -144,8 +133,7 @@ def Checkout(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             print('we are in post')
-            items_json = request.POST.get('itemsJson', '')
-            print(items_json)
+            
             name = request.POST.get('name', '')
             print(name)
             email = request.POST.get('email', '')
@@ -161,38 +149,52 @@ def Checkout(request):
             phone = request.POST.get('phone', '')
             print(phone)
 
-            order = Orders(items_json=items_json, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone)
+            get_cart = Cart.objects.filter(user=request.user)
+
+            i = 1
+            Citem = ''
+            for l in get_cart:
+
+                Citem += f'{i}.{l.product.product_name} \n \n'
+                i +=1
+
+
+            order = Orders(items_json=Citem, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone)
             order.save()
             thank = True
             id = order.order_ids
 
         
-
+            # Emailing
             subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
-            message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {items_json} and will contact you as soon as your order is shipped'
+            message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {Citem} and we will contact you as soon as your order is shipped'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email ]
             send_mail( subject, message, email_from, recipient_list )
 
-            get_cart = Cart.objects.filter(user=request.user)
+            
  
-            Gtotal = 0
-            for c in get_cart:
-                Ptotal = int(c.product.price) * int(c.qty)
-                Gtotal += int(Ptotal)
+            # Gtotal = 0
+            # for c in get_cart:
+            #     Ptotal = int(c.product.price) * int(c.qty)
+            #     Gtotal += int(Ptotal)
+
+            
+                
   
-            return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,'kart':get_cart,'gtotal':Gtotal})
-        print('outer if')
+            return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,'kart':get_cart,'gtotal':0,'po':1})
+        # print('outer if')
 
         get_cart = Cart.objects.filter(user=request.user)
 
         Gtotal = 0
-        for c in get_cart:
-            Ptotal = int(c.product.price) * int(c.qty)
-            Gtotal += int(Ptotal)
+        if get_cart:
+            for c in get_cart:
+                Ptotal = int(c.product.price) * int(c.qty)
+                Gtotal += int(Ptotal)
 
 
-        return render(request, 'Checkout.html', {'thank': False, 'name': request.user,'kart':get_cart,'gtotal':Gtotal})
+        return render(request, 'Checkout.html', {'thank': False, 'name': request.user,'kart':get_cart,'gtotal':Gtotal,'po':2})
     else:
         return HttpResponseRedirect('/loginCustomer')
     
@@ -541,5 +543,22 @@ def clCart(request):
      
 
    
+ 
+    return JsonResponse( {'hi':'hi'})
+
+
+@csrf_exempt
+def CartitemDel(request):
+ 
+    Cid = request.POST['Cid']
+    pid = request.POST['Pid']
+    
+    get_prod = Product.objects.filter(id = pid).first()
+    get_Usr = User.objects.filter(id = Cid).first()
+    gt_Cproddu = Cart.objects.filter(Q(user=get_Usr) & Q(product=get_prod)).first()
+
+    gt_Cproddu.delete()
+    
+ 
  
     return JsonResponse( {'hi':'hi'})

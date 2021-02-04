@@ -37,6 +37,7 @@ urlpatterns = [
     path('minuscart/', views.minuscart, name='minuscart'),
     path('popover/', views.popover, name='popover'),
     path('clCart/', views.clCart, name='clCart'),
+    path('CartitemDel/', views.CartitemDel, name='CartitemDel'),
 
 
 
