@@ -23,32 +23,34 @@ class Product(models.Model):
     
 
 ######################################################### Feedback Model ##################################################
-""" class FeedBack(models.Model):
+class FeedBack(models.Model):
     name = models.CharField(max_length=70)
     email = models.EmailField(max_length=254)
     feedback = models.TextField()
- """
+ 
  
 ######################################################## Messege Us Model #####################################################
-""" class Messegeus(models.Model):
+class Messegeus(models.Model):
     name = models.CharField(max_length=70)
     email = models.EmailField(max_length=254)
     messegee = models.TextField()
- """
+
 
 ######################################################## Order Model #####################################################
 class Orders(models.Model):
     id = models.AutoField
     order_ids = models.CharField(   max_length=24, default=rando)
-    items_json = models.CharField(max_length = 5000 ,default="")
+    items_json = models.CharField(max_length = 50000 ,default="")
     name = models.CharField(max_length=90, default="")
     email = models.EmailField(max_length=254 ,default=" ")
     phone_No = models.IntegerField(default=0)
-    address = models.CharField(max_length=100, default="")
+    address = models.CharField(max_length=1000, default="")
     city = models.CharField(max_length=50, default="")
     state = models.CharField(max_length=50, default="")
     zip_code = models.CharField(max_length=50, default="")
+    users = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
 
+   
 
 
 

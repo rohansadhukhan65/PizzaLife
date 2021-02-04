@@ -158,16 +158,16 @@ def Checkout(request):
                 Citem += f'{i}.{l.product.product_name} \n \n'
                 i +=1
 
-
-            order = Orders(items_json=Citem, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone)
+            gotU = User.objects.filter(username=request.user).first()
+            order = Orders(items_json=Citem, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone,users=gotU)
             order.save()
             thank = True
-            id = order.order_ids
+            ids = order.order_ids
 
         
             # Emailing
             subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
-            message = f'{name.split()[0]} Thank You For Order  !. We recived your order of \n {Citem} and we will contact you as soon as your order is shipped'
+            message = f'{name.split()[0]} Thank You For Order Your Order Id is {ids}  !. We Recived Your Order Of \n {Citem}   We Will Notify Your Order Status !'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email ]
             send_mail( subject, message, email_from, recipient_list )
@@ -182,7 +182,7 @@ def Checkout(request):
             
                 
   
-            return render(request, 'Checkout.html', {'thank': thank, 'id': id ,'name': request.user,'kart':get_cart,'gtotal':0,'po':1})
+            return render(request, 'Checkout.html', {'thank': thank, 'id': ids ,'name': request.user,'kart':get_cart,'gtotal':0,'po':1})
         # print('outer if')
 
         get_cart = Cart.objects.filter(user=request.user)

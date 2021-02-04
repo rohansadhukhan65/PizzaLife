@@ -66,7 +66,11 @@
     }
           }
 
-
+.hovshadow:hover {
+  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+}
     
   </style>
 </head>
@@ -112,10 +116,13 @@
           </div>
         </li>
         <li class="nav-item text-center">
-            <a class="nav-link text-dark" href="/UserHome/"  ><button type="button"  class="btn btn-dark" > Back</button></a>
+            <a class="nav-link text-dark" href="/UserHome/"  ><button type="button"  class="btn btn-outline-dark" > Back</button></a>
         </li>
         <li class="nav-item text-center  ">
-          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-dark"> Log Out</button></a>
+          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-outline-dark"> My Orders</button></a>
+        </li>
+        <li class="nav-item text-center  ">
+          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-outline-danger"> Log Out</button></a>
         </li>
         
       </ul>
@@ -138,16 +145,16 @@
        <div class="row">
 
          <!-- review items -->
-         <div class="col-12 col-md-6">
-           <h2>Step 1 -  Review Your Cart Items</h2>
+         <div class="col-12 col-md-6  ">
+           <h2 class="text-center">Step 1 -  Review Your Cart Items</h2>
             <hr class="bg-warning">
             <div class="my-5">
                 <ul class="list-group" id="itemss">
                   <li class="list-group-item" style="background-color: transparent; border-color: transparent;  ">
 
                     {%for ku in kart %}
-                    <div class="alert alert-success" role="alert">
-                     <a href=""> <h5 class="float-right text-danger" onclick="CrtDel('{{ku.user.id}}','{{ku.product.id}}')"><i class="fas fa-times"></i></h5></a>
+                    <div class="alert alert-success shadow" role="alert">
+                     <a href=""> <h3 class="float-right text-danger" onclick="CrtDel('{{ku.user.id}}','{{ku.product.id}}')"><i class="fas fa-times"></i></h3></a>
                       <span class="font-weight-bold"> {{forloop.counter}}.{{ku.product.product_name}} </span> <br> Price : {{ku.product.price}}  <br>   Quantity : {{ku.qty}} <br> Total : <span class=" ">Rs {{ ku.qty|mul:ku.product.price }}  </span> 
                     </div>
 
@@ -170,7 +177,7 @@
 
          <!-- Enter Details -->
          <div class="col-12 col-md-6 ">
-           <h2>Step 2 -  Enter Address   </h2>
+           <h2 class="text-center">Step 2 -  Enter Address   </h2>
             <hr class="bg-warning">
             <form method="POST" action="{% url 'Customer:Checkout' %}">
                 {% csrf_token %}
@@ -215,7 +222,7 @@
                   </div>
                 
                   <div class="text-center" onclick="clearcart()">
-                   <a href=""><button type="submit" class="btn btn-warning   w-50 " onclick="">Place Order</button> </a> 
+                   <a href=""><button type="submit" class="btn btn-warning shadow   w-50 " onclick="">Place Order</button> </a> 
                   </div>
             <!-- -->
             </form>

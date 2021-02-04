@@ -47,7 +47,7 @@
 
 
 .shadowmy:hover{
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 10px 20px 0  rgba(206, 200, 16, 0.748), 0 10px 20px 0 rgba(206, 200, 16, 0.748);
 }
 
 
@@ -112,7 +112,7 @@
 
 
          <li class="nav-item dropdown mr-auto ml-auto   ">
-          <a style="text-decoration: none; " class="nav-link dropdown-toggle  p-0 py-2 px-1 mt-2 btn btn-info font-weight-bold  shadow"   href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style="text-decoration: none; " class="nav-link dropdown-toggle  p-0 py-2 px-1 mt-2 btn btn-outline-info font-weight-bold  shadow"   href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <i class="fas fa-cart-plus"></i>  Cart <span id="tot" class="text-center bg-danger shadow text-light noti" ></span>
           </a>
 
@@ -122,25 +122,25 @@
              </div>
               
                 <div class="row mt-2 text-center  ">
-                <div class="col-6"> <a href="{%url 'Customer:Checkout'%}" class="pl-3"><button class="btn btn-dark">Chekout</button></a></div>
-             <div class="col-6"> <a href=""><button class="btn btn-dark" onclick="clearCart('{{name.id}}')">Clear  </button></a>  </div>
+                <div class="col-6 float-right" > <a href="{%url 'Customer:Checkout'%}" class="float-right"><button class="btn btn-dark float-right">Chekout</button></a></div>
+             <div class="col-6 float-left"> <a href="" class="float-left "><button class="btn btn-dark float-left" onclick="clearCart('{{name.id}}')">Clear  </button></a>  </div>
               </div>
               
           </div>
 
         </li>
 
+        <li class="nav-item text-center  ">
+          <a class="nav-link text-dark  " href="/"><button class="btn btn-outline-dark py-2 shadow"> My Orders</button></a>
+        </li>
 
         <li class="nav-item text-center  ">
-          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-dark p-0 py-2 px-2"> Log Out</button></a>
+          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-outline-danger p-0 py-2 px-2 shadow"> Log Out</button></a>
         </li>
 
         
         
-        <!-- <li class="nav-item text-center">
-            <a class="nav-link text-dark"  ><button type="button" id="popcart" class="btn btn-dark" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Product Card"> Cart (<span id="cart">0</span>)</button></a>
-             
-        </li> -->
+        
       </ul>
     </div>
   </nav>
@@ -163,8 +163,8 @@
         
 
       <!-- Start pizza  Menu----------------------------------------------------->
-       <h3 class=" font-weight-light pb-3 mt-5">Pizza Menu <i class="fas fa-pizza-slice"></i></h3>
-        <hr>
+       <h3 class=" font-weight-bold pb-3 mt-5 text-warning" style="filter: drop-shadow(1px 1px 1px #020504);">Pizza Menu <i class="fas fa-pizza-slice"></i></h3>
+        <hr class="bg-warning">
         <div class="row">
          
               {% for i in product %} 
@@ -177,7 +177,7 @@
                     <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                     $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                     <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                    <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark  " onclick=" addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
+                    <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-warning shadow  " onclick=" addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                   </div>
                 </div>
                </div>
@@ -193,8 +193,8 @@
 
 
         <!-- Start Sides Menu----------------------------------------------------->
-       <h3 class=" font-weight-light pb-3 pt-5 mt-5">Sides Menu <i class="fas fa-hamburger"></i></h3>
-        <hr>
+       <h3 class=" font-weight-bold pb-3 pt-5 mt-5 text-warning" style="filter: drop-shadow(1px 1px 1px #020504);">Sides Menu <i class="fas fa-hamburger"></i></h3>
+        <hr class="bg-warning">
          <div class="row">
         {% for i in product %} 
         {% if i.category == "Sides Menu"%}
@@ -206,7 +206,7 @@
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"   onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-warning shadow "   onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -221,8 +221,8 @@
 
 
         <!-- Start Drink Menu----------------------------------------------------->
-       <h3 class=" font-weight-light pb-3 pt-5 mt-5">Drink Menu <i class="fas fa-glass-martini-alt"></i></h3>
-        <hr>
+       <h3 class=" font-weight-bold pb-3 pt-5 mt-5 text-warning" style="filter: drop-shadow(1px 1px 1px #020504);"> Drink Menu <i class="fas fa-glass-martini-alt"></i></h3>
+        <hr class="bg-warning">
         <div class="row">
 
             {% for i in product %} 
@@ -235,7 +235,7 @@
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"  onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-warning shadow "  onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -249,8 +249,8 @@
 
 
         <!-- Start Desert Menu----------------------------------------------------->
-       <h3 class=" font-weight-light pb-3 pt-5 mt-5">Desert Menu <i class="fas fa-cookie"></i></h3>
-        <hr>
+       <h3 class=" font-weight-bold pb-3 pt-5 mt-5 text-warning" style="filter: drop-shadow(1px 1px 1px #020504);">Desert Menu <i class="fas fa-cookie"></i></h3>
+        <hr class="bg-warning">
         <div class="row">
             {% for i in product %} 
             {% if i.category == "Desert Menu"%}
@@ -262,7 +262,7 @@
                       <h5 class="card-title  " id="namepr{{i.id}}"> {{i.product_name}}  </h5>
                       $ <span class="font-weight-bold" id="price{{i.id}}"> {{i.price}}</span>
                       <p class="card-text text-justify font-weight-light"> <small class="text-justify font-weight-light">{{i.desc}}</small></p>
-                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-dark cart"  onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
+                      <span id="divpr{{i.id}}" class="divpr"> <button id="pr{{i.id}}" class="btn btn-warning shadow "  onclick="addcart('{{i.id}}','{{name.id}}','divpr{{i.id}}')">Add Cart</button> </span>
                     </div>
                 </div>
                </div>
@@ -388,7 +388,7 @@ $( document ).ready(function() {
       console.log('Qtity')
 
       console.log(data)
-      document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}') "  id='minus' class='btn btn-dark minus'>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-dark plus'> + </button>`    
+      document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}') "  id='minus' class='btn btn-warning shadow '>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-warning shadow '> + </button>`    
 
 
     }
@@ -413,7 +413,7 @@ $( document ).ready(function() {
       console.log('Qtity')
 
       console.log(data)
-       document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}')"  id='minus' class='btn btn-dark minus'>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-dark plus'> + </button>`       
+       document.getElementById(prodDiv).innerHTML =`<button  onclick="minuscart('${prodid}','${customer}','${prodDiv}')"  id='minus' class='btn btn-warning shadow '>-</button> ${data } <button  onclick="addcart('${prodid}','${customer}','${prodDiv}')"   id='plus' class='btn btn-warning shadow'> + </button>`       
 
 
     }
@@ -449,8 +449,8 @@ function  Popoverupd(id){
         var k= 1;
         var itom = "<h5 class='text-center'>  Your Order's </h5><div class='mx-2 my-2 font-weight-light'>";
          for (i = 0; i < data.length; i++){
-            itom +=  "</br>" + k+ ". ";
-              itom += `${data[i].nameprod}... Qty: ${data[i].qty}` 
+            itom +=  "</br>"+k+".";
+              itom += `${truncateString(data[i].nameprod,20)}Qty: ${data[i].qty}` 
        k = k+1;
     }
     // itom += ``
@@ -481,9 +481,15 @@ function clearCart(id){
     }
   });
 
+}
 
 
-
+function truncateString(str, num) {
+  if (str.length > num) {
+    return str.slice(0, num) + "...";
+  } else {
+    return str;
+  }
 }
 </script>
 </body>

@@ -31,7 +31,7 @@ urlpatterns = [
     path('admin_show_orders/', views.ShowOrders, name='admin_show_orders'),
 
 
-    # ajax
+    # ajax=============
 
     path('addcart/', views.addcart, name='addcart'),
     path('minuscart/', views.minuscart, name='minuscart'),
