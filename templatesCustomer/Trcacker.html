@@ -1,14 +1,311 @@
+ {% load mathfilters %}
+
 <!doctype html>
-{% extends "base.html" %}
+<html lang="en">
 
-{% block title %}
-PizzaLife
-{% endblock title %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block body %}
+ <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  <!-- Fontawsome css -->
+  <link rel="stylesheet" href="/static/fontawsome/css/all.css">
+  <!--load all styles -->
+   <link rel="stylesheet" href="/static/fontawsome/css/brands.css">
+  <link rel="stylesheet" href="/static/fontawsome/css/fontawsome.css">
+  <link rel="stylesheet" href="/static/fontawsome/css/regular.css">
+  <link rel="stylesheet" href="/static/fontawsome/css/solid.css">
+  <link rel="stylesheet" href="/static/fontawsome/css/svg-with-js.css">
+  <link rel="stylesheet" href="/static/fontawsome/css/v4-shims.css">  
+
+  <!-- javascript fontawsome -->
+  <script defer src="all.js"></script>
+  <!--load all styles -->
+  <script defer src="/static/fontawsome/js/fontawesome.js"></script>
+  <script defer src="/static/fontawsome/js/brands.js"></script>
+  <script defer src="/static/fontawsome/js/solid.js"></script>
+  <script defer src="/static/fontawsome/js/conflict-detection.js"></script>
+  <script defer src="/static/fontawsome/js/regular.js"></script>
+  <script defer src="/static/fontawsome/js/v4-shims.js"></script>  
+
+
+  <title> Pizza Life </title>
+  <!-- add icon link -->
+  <link rel="icon" href="/static/images/Logo.png" type="image/x-icon">
+
+
+  <style>
+    div.sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 200px;
+      padding: 50px;
+      font-size: 20px;
+    }
+
+    .pad-right{
+      padding-left: 1000px;
+    }
+
+   @media only screen and (min-width: 985px) {
+       .center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+          }
+
+    @media only screen and (max-width: 985px) {
+       .pad-right{
+      padding-left: 10px;
+    }
+          }
+
+.hovshadow:hover {
+  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+}
+    
 
 
 
 
 
-{% endblock body %}
+    
+  </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-warning bg-warning shadow sticky-top">
+
+    <div>
+
+      <a class="navbar-brand  text-dark text-center  text-center" href="/" style="font-size: 30px; float: left;"><img
+          src="/static/images/Logo.png" width="60" height="60" alt="" loading="fast">PizzaLife</a>
+
+    </div>
+
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-dark"><svg width="2em" height="2em" viewbox="0 0 16 16" class="bi bi-text-right"
+          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+        </svg></span>
+    </button>
+
+
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav  text-dark   ml-auto mr-auto">
+        <li class="nav-item text-center pr-lg-5 mr-lg-5 pl-lg-5 ml-lg-5">
+          <div class="mr-lg-5 pr-lg-5 ml-lg-5 pl-lg-5 text-center">
+            <h5 class="pr-lg-5 mr-lg-5 pl-lg-5   font-weiight-light text-center text-success">Welcome, {{name}} <i class="far fa-user"></i></h5>
+          </div>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-dark" href="/UserHome/"  ><button type="button"  class="btn btn-outline-dark" > Back</button></a>
+        </li>
+        <li class="nav-item text-center  ">
+          <a class="nav-link text-dark  " href="/Tracker/"><button class="btn btn-outline-dark"> My Orders</button></a>
+        </li>
+        <li class="nav-item text-center  ">
+          <a class="nav-link text-dark  " href="/Logout/"><button class="btn btn-outline-danger"> Log Out</button></a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+  <!-- End of Nav -->
+
+
+
+
+
+
+  
+  <!-- ===================================================================================================================================== -->
+<main class="py-5  ">
+
+    
+    <div class="container">
+            <div class="card ">
+                <div class="card-header">
+                    <h2 class="text-center">All Orders</h2>
+                </div>
+                <div class="card-body">
+                 {%for or in ordr%}
+                    <div class="alert alert-primary shadow" role="alert">
+                        <div class="row">
+                            <div class="col-12 col-md-3 text-center">1.veggis pasta <br> Quantity : 5 <br> Total : 500</div>
+
+
+                            <div class="col-12 col-md-9">
+                                 <div class="text-center">
+                                     <i class="fas fa-clipboard-list"></i> Order Taken
+                                    <div class="progress  "  >
+                                        <div class="progress-bar bg-primary " role="progressbar" style="width: 20%;  " aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">  </div>
+                                    </div>
+
+                                    <i class="fas fa-clipboard-check mt-3"></i> Order Confirmed
+                                    <div class="progress ">
+                                        <div class="progress-bar  " role="progressbar" style="width: 40%; background-color: orangered;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"> </div>
+                                    </div>
+
+                                    <i class="fas fa-utensils  mt-3"></i> Order Cooked
+                                    <div class="progress ">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width:60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"> </div>
+                                    </div>
+
+                                    <i class="fas fa-motorcycle mt-3"></i> Order Delivered
+                                     <div class="progress ">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <i class="fas fa-check-circle mt-3"></i> Order Recived
+                                    <div class="progress ">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> </div>
+                                    </div>
+
+                                    <i class="far fa-window-close mt-3"></i> Order Cancel
+                                    <div class="progress ">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width:100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {%endfor%}
+                   
+
+                </div>
+            </div>
+    </div>
+
+
+</main>
+
+  <!-- ===================================================================================================================================== -->
+
+
+
+
+
+
+   {% comment %} Footer {% endcomment %}
+      <footer>
+        <div class="container-fluid bg-warning  text-center">
+
+
+          <!-- 1st row -->
+          <div class="row pt-5 mt-5">
+            <!-- col 1 -->
+            <div class="col-12 col-md-4 py-3 pb-3 ">
+              <h5 class="text-dark  mt-3 ">Quick Links</h5>
+              <a class="text-dark d-block" href="/" style="text-decoration: none;">Home</a>
+              <a class="text-dark d-block" href="/" style="text-decoration: none;">About Us</a>
+              <a class="text-dark d-block" href="/" style="text-decoration: none;">Contact Us</a>
+            </div>
+            <!-- col 2 -->
+            <div class="col-12 col-md-4 py-3 text-light text-center">
+              <h5 class="text-dark  ">Our Polices</h5>
+              <a class="text-dark d-block" href="#" style="text-decoration: none;">Terms & Conditions</a>
+            </div>
+            <!-- col 3 -->
+            <div class="col-12 col-md-4 py-3">
+              <h5 class="text-dark mb-3">Social</h5>
+              <center class="py-1"><a href="#">
+                  <i class="fab fa-facebook text-dark" style="height: 6%; width: 6%;"></i>
+                </a></center>
+              <center class="py-1"><a href="#">
+                  <i class="fab fa-instagram text-dark" style="height: 6%; width: 6%;"></i>
+                </a></center>
+
+            </div>
+          </div>
+
+
+
+
+          <div class="row justify-content-center py-3">
+            <div class="col-12 py-3 text-light text-justify ">
+              <p class="text-dark text-center"> Copyright &#169; PizzaLife 2021</p>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </footer>
+
+
+
+
+    
+
+    
+      <!-- Optional JavaScript; choose one of the two! -->
+
+      <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+      
+     <!--  Option 2: jQuery, Popper.js, and Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+
+          <!-- =============== ajax cdn =============== -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+ 
+
+
+
+
+</body>
+
+</html>

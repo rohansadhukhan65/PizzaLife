@@ -202,11 +202,15 @@ def Checkout(request):
 
 
 def Tracker(request):
-    if request.method == "POST":
-        name = request.POST.get('name', '')
+    if request.user.is_authenticated:
+        allOrders = Orders.objects.filter(Q(users=request.user))
         
+        return render(request, 'Trcacker.html', {'name': request.user, 'ordr': allOrders})
+    else:
+        return HttpResponseRedirect('/loginCustomer')
+            
 
-    return render(request, 'Trcacker.html')
+    
 
 
 
@@ -508,7 +512,7 @@ def popover(request):
     get_Uu = User.objects.filter(id = UIddd).first()
 
     cartItem = Cart.objects.filter(user=get_Uu).values()
-    cartItemcount = Cart.objects.filter(user=get_Uu).count()
+    cartItemcount = Cart.objects.filter(user=get_Uu)
 
     Citem = list(cartItem)
     print()
@@ -523,7 +527,7 @@ def popover(request):
            
 
  
-    return JsonResponse({'cart': Citem, 'count': cartItemcount})
+    return JsonResponse({'cart': Citem, 'count': cartItemcount.count()})
     
 
 

@@ -49,6 +49,13 @@ class Orders(models.Model):
     state = models.CharField(max_length=50, default="")
     zip_code = models.CharField(max_length=50, default="")
     users = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    Taken = models.BooleanField(default=0)
+    Confirmed = models.BooleanField(default=0)
+    Cooked = models.BooleanField(default=0)
+    Delivered = models.BooleanField(default=0)
+    Recived = models.BooleanField(default=0)
+    Cancel = models.BooleanField(default=0)
+    
 
    
 
