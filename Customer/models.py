@@ -40,7 +40,8 @@ class Messegeus(models.Model):
 class Orders(models.Model):
     id = models.AutoField
     order_ids = models.CharField(   max_length=24, default=rando)
-    items_json = models.CharField(max_length = 50000 ,default="")
+    items_json = models.TextField(  default="")
+    total = models.CharField(max_length=50000, default="")
     name = models.CharField(max_length=90, default="")
     email = models.EmailField(max_length=254 ,default=" ")
     phone_No = models.IntegerField(default=0)
@@ -49,11 +50,13 @@ class Orders(models.Model):
     state = models.CharField(max_length=50, default="")
     zip_code = models.CharField(max_length=50, default="")
     users = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    Taken = models.BooleanField(default=0)
+
+    Taken = models.BooleanField(default=1)
     Confirmed = models.BooleanField(default=0)
     Cooked = models.BooleanField(default=0)
     Delivered = models.BooleanField(default=0)
     Recived = models.BooleanField(default=0)
+    
     Cancel = models.BooleanField(default=0)
     
 

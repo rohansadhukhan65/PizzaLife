@@ -52,12 +52,7 @@
     }
 
    @media only screen and (min-width: 985px) {
-       .center{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+       
           }
 
     @media only screen and (max-width: 985px) {
@@ -71,10 +66,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
    
 }
-    
-
-
-
+  
 
 
     
@@ -156,40 +148,52 @@
                  {%for or in ordr%}
                     <div class="alert alert-primary shadow" role="alert">
                         <div class="row">
-                            <div class="col-12 col-md-3 text-center">1.veggis pasta <br> Quantity : 5 <br> Total : 500</div>
+                            <div class="col-12 col-md-5 text-center text-dark">  {{or.items_json}} <br>  <br> Total : Rs {{or.total}}</div>
 
 
-                            <div class="col-12 col-md-9">
-                                 <div class="text-center">
-                                     <i class="fas fa-clipboard-list"></i> Order Taken
-                                    <div class="progress  "  >
+                            <div class="col-12 col-md-7  ">
+                                 <div class="text-center pt-3">
+                                   {%if or.Taken%}
+                                     <i class="fas fa-clipboard-list mt-3"></i> Order Taken
+                                    <div class="progress mt-1 "  >
                                         <div class="progress-bar bg-primary " role="progressbar" style="width: 20%;  " aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">  </div>
                                     </div>
+                                    {%endif%}
 
+                                    {%if or.Confirmed%}
                                     <i class="fas fa-clipboard-check mt-3"></i> Order Confirmed
-                                    <div class="progress ">
+                                    <div class="progress mt-1">
                                         <div class="progress-bar  " role="progressbar" style="width: 40%; background-color: orangered;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"> </div>
                                     </div>
+                                    {%endif%}
 
+                                    {%if or.Cooked%}
                                     <i class="fas fa-utensils  mt-3"></i> Order Cooked
-                                    <div class="progress ">
+                                    <div class="progress mt-1">
                                         <div class="progress-bar bg-info" role="progressbar" style="width:60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"> </div>
                                     </div>
+                                    {%endif%}
 
+                                    {%if or.Delivered%}
                                     <i class="fas fa-motorcycle mt-3"></i> Order Delivered
-                                     <div class="progress ">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width:80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                     <div class="progress mt-1 ">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
+                                    {%endif%}
 
+                                    {%if or.Recived%}
                                     <i class="fas fa-check-circle mt-3"></i> Order Recived
-                                    <div class="progress ">
+                                    <div class="progress mt-1">
                                         <div class="progress-bar bg-success" role="progressbar" style="width:100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> </div>
                                     </div>
+                                    {%endif%}
 
+                                    {%if or.Cancel%}
                                     <i class="far fa-window-close mt-3"></i> Order Cancel
-                                    <div class="progress ">
+                                    <div class="progress mt-1">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width:100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> </div>
                                     </div>
+                                    {%endif%}
                                     
                                 </div>
                             </div>

@@ -23,7 +23,11 @@ urlpatterns = [
     path('fpwd/', views.fpwd, name='fpwd'),
     path('otpverify/', views.otpverify, name='otpverify'),
     path('pwdreset/', views.pwdreset, name='pwdreset'),
+
+
+
     ############ Admin part ##########################
+
     path('adminlogin/', views.adminlogin, name='adminlogin'),
     path('admin_home/', views.admin_home, name='admin_home'),
     path('admin_Logout/', views.adminlogout, name='admin_Logout'),
@@ -38,6 +42,16 @@ urlpatterns = [
     path('popover/', views.popover, name='popover'),
     path('clCart/', views.clCart, name='clCart'),
     path('CartitemDel/', views.CartitemDel, name='CartitemDel'),
+
+    # orderstatus URL
+
+    path('Confirmed_Ordr/', views.Confirmed_Ordr, name='Confirmed_Ordr'),
+    path('Cooked_order/', views.Cooked_order, name='Cooked_order'),
+    path('Delivered_ordr/', views.Delivered_ordr, name='Delivered_ordr'),
+    path('Recived_ordr/', views.Recived_ordr, name='Recived_ordr'),
+    path('Cancel_ordr/', views.Cancel_ordr, name='Cancel_ordr'),
+
+    
 
 
 

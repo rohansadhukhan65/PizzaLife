@@ -26,60 +26,67 @@ import uuid
 
 
 def home(request):
-    # print(request.META['HTTP_HOST'])
-     
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/UserHome/')
+
     return render(request, 'index.html')
 
 
 # singup
 def signup(request):
-
-    if request.method == 'POST':
-        SignForm = signUp(request.POST)
-        if SignForm.is_valid():
-             
-            SignForm.save()
-
-            print()
-
-            
-            user = User.objects.filter(username=SignForm.cleaned_data['username']).first()
-            user.is_active = 0
-            user.save()
-
-
-            link = str(request.META['HTTP_HOST'])+'/loginCustomerverification/'+str(uuid.uuid4())
-
-            subject = f'PizzaLife User Verification ! '
-            message = f'Please Login From the Link Below and Veriify Your Email \n Link : {link}'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [SignForm.cleaned_data['username']]
-            send_mail( subject, message, email_from, recipient_list )
-            
-            return render(request, 'signup.html', {'Signform': SignForm,'msg':'Please Confirm Your Email by login with the email link'})
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/UserHome/')
     else:
-        SignForm = signUp()
-        print('nehi gaya')
 
-    return render(request, 'signup.html', {'Signform': SignForm})
+        if request.method == 'POST':
+            SignForm = signUp(request.POST)
+            if SignForm.is_valid():
+                
+                SignForm.save()
+
+                print()
+
+                
+                user = User.objects.filter(username=SignForm.cleaned_data['username']).first()
+                user.is_active = 0
+                user.save()
+
+
+                link = str(request.META['HTTP_HOST'])+'/loginCustomerverification/'+str(uuid.uuid4())
+
+                subject = f'PizzaLife User Verification ! '
+                message = f'Please Login From the Link Below and Veriify Your Email \n Link : {link}'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [SignForm.cleaned_data['username']]
+                send_mail( subject, message, email_from, recipient_list )
+                
+                return render(request, 'signup.html', {'Signform': SignForm,'msg':'Please Confirm Your Email by login with the email link'})
+        else:
+            SignForm = signUp()
+            print('nehi gaya')
+
+        return render(request, 'signup.html', {'Signform': SignForm})
 
 
 # login
 def loginCustomer(request):
-    if request.method == 'POST':
-        fm = AuthenticationForm(request=request, data=request.POST)
-        if fm.is_valid():
-
-            uname = fm.cleaned_data['username']
-            upass = fm.cleaned_data['password']
-            user = authenticate(username=uname, password=upass)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/UserHome')
-
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/UserHome/')
     else:
-        fm = AuthenticationForm()
-    return render(request, 'loginCustomer.html', {'fm': fm})
+        if request.method == 'POST':
+            fm = AuthenticationForm(request=request, data=request.POST)
+            if fm.is_valid():
+
+                uname = fm.cleaned_data['username']
+                upass = fm.cleaned_data['password']
+                user = authenticate(username=uname, password=upass)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect('/UserHome')
+
+        else:
+            fm = AuthenticationForm()
+        return render(request, 'loginCustomer.html', {'fm': fm})
 
 
 
@@ -152,14 +159,16 @@ def Checkout(request):
             get_cart = Cart.objects.filter(user=request.user)
 
             i = 1
+            t=0
             Citem = ''
             for l in get_cart:
 
-                Citem += f'{i}.{l.product.product_name} \n \n'
-                i +=1
+                Citem += f'{i}.{l.product.product_name}   Quantity : {l.qty} || \n'
+                i += 1
+                t += int(l.product.price)
 
             gotU = User.objects.filter(username=request.user).first()
-            order = Orders(items_json=Citem, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone,users=gotU)
+            order = Orders(items_json=Citem, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone_No=phone,users=gotU,total=t )
             order.save()
             thank = True
             ids = order.order_ids
@@ -167,7 +176,7 @@ def Checkout(request):
         
             # Emailing
             subject = f'{name.split()[0]}  Your Order Has Been Placed  !  '
-            message = f'{name.split()[0]} Thank You For Order Your Order Id is {ids}  !. We Recived Your Order Of \n {Citem}   We Will Notify Your Order Status !'
+            message = f'{name.split()[0]} Thank You For Order Your Order Id is {ids}  !. We Recived Your Order Of \n {Citem} We Will Notify Your Order Status !'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email ]
             send_mail( subject, message, email_from, recipient_list )
@@ -253,19 +262,25 @@ def ContactUs(request):
 ##################################################### Admin Part ###############################################################
 
 def adminlogin(request):
-    if request.method == 'POST':
-        fm = AuthenticationForm(request=request, data=request.POST)
-        if fm.is_valid():
-            uname = fm.cleaned_data['username']
-            upass = fm.cleaned_data['password']
-            user = authenticate(username=uname, password=upass)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/admin_home')
-
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/admin_home/')
+    
     else:
-        fm = AuthenticationForm()
-    return render(request, 'LoginAdmin.html', {'fm': fm})
+
+        if request.method == 'POST':
+            fm = AuthenticationForm(request=request, data=request.POST)
+            if fm.is_valid():
+                uname = fm.cleaned_data['username']
+                upass = fm.cleaned_data['password']
+                user = authenticate(username=uname, password=upass)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect('/admin_home')
+
+        else:
+            fm = AuthenticationForm()
+        return render(request, 'LoginAdmin.html', {'fm': fm})
+ 
    
 
 def adminlogout(request):
@@ -282,43 +297,49 @@ def admin_home(request):
 
 #----------------------------add Product---------------------
 def AddProduct(request):
-    if request.method == 'POST':
-        print('post')
-        product_frm = Productsform(request.POST, request.FILES)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            print('post')
+            product_frm = Productsform(request.POST, request.FILES)
 
-        if product_frm.is_valid():
-            print('is valid')
-            nm = product_frm.cleaned_data['product_name']
-            print(nm)
-            catgry = product_frm.cleaned_data['category']
-            subcatgry = product_frm.cleaned_data['subcategory']
-            pric = product_frm.cleaned_data['price']
-            dec = product_frm.cleaned_data['desc']
-            pdate = product_frm.cleaned_data['pub_date']
-            img = product_frm.cleaned_data['image']
-            print(img)
-            
-             
+            if product_frm.is_valid():
+                print('is valid')
+                nm = product_frm.cleaned_data['product_name']
+                print(nm)
+                catgry = product_frm.cleaned_data['category']
+                subcatgry = product_frm.cleaned_data['subcategory']
+                pric = product_frm.cleaned_data['price']
+                dec = product_frm.cleaned_data['desc']
+                pdate = product_frm.cleaned_data['pub_date']
+                img = product_frm.cleaned_data['image']
+                print(img)
+                
+                
 
-            save = Product(product_name=nm, category=catgry, subcategory=subcatgry, price=pric, desc=dec, pub_date=pdate,image=img)
-            save.save()
+                save = Product(product_name=nm, category=catgry, subcategory=subcatgry, price=pric, desc=dec, pub_date=pdate,image=img)
+                save.save()
 
+            else:
+                print('not valid')
         else:
-            print('not valid')
-    else:
-        print('nhi aya')
-      
-        product_frm = Productsform()
+            print('nhi aya')
+        
+            product_frm = Productsform()
 
-    return render(request, 'add-product.html', {'product_frm': product_frm})
+        return render(request, 'add-product.html', {'product_frm': product_frm})
+    else:
+        return HttpResponseRedirect('/adminlogin')
 
 
 #----------------------- Show Orders ----------------------------
 
 def ShowOrders(request):
-    Order = Orders.objects.all()
-    print(Order)
-    return render(request, 'show_orders.html' , {'orders' : Order})
+    if request.user.is_authenticated:
+        Order = Orders.objects.all()
+        print(Order)
+        return render(request, 'show_orders.html', {'orders': Order})
+    else:
+        return HttpResponseRedirect('/adminlogin')
 
 
 
@@ -566,3 +587,106 @@ def CartitemDel(request):
  
  
     return JsonResponse( {'hi':'hi'})
+
+
+
+
+
+#  admin siide Ajax
+
+@csrf_exempt
+def Confirmed_Ordr(request):
+ 
+    Oid = request.POST['Oid']
+    Od = Orders.objects.get(id=Oid)
+
+    Od.Taken = 0
+    Od.Confirmed = 1
+    Od.Cooked = 0
+    Od.Delivered = 0
+    Od.Recived = 0
+    Od.save()
+
+    return JsonResponse({'hi': 'hi'})
+
+@csrf_exempt
+def Cooked_order(request):
+ 
+    Oid = request.POST['Oid']
+    Od = Orders.objects.get(id=Oid)
+
+    Od.Taken = 0
+    Od.Confirmed =0
+    Od.Cooked =1
+    Od.Delivered =0
+    Od.Recived = 0
+    Od.save()
+    
+    
+
+ 
+    return JsonResponse( {'hi':'hi'})
+
+
+@csrf_exempt
+def Delivered_ordr(request):
+ 
+    Oid = request.POST['Oid']
+    Od = Orders.objects.get(id=Oid)
+
+    Od.Taken = 0
+    Od.Confirmed =0
+    Od.Cooked =0
+    Od.Delivered =1
+    Od.Recived = 0
+    Od.save()
+
+    
+
+ 
+    return JsonResponse( {'hi':'hi'})
+    
+
+@csrf_exempt
+def Recived_ordr(request):
+  
+    Oid = request.POST['Oid']
+    Od = Orders.objects.get(id=Oid)
+
+    Od.Taken = 0
+    Od.Confirmed =0
+    Od.Cooked =0
+    Od.Delivered =0
+    Od.Recived = 1
+    Od.save()
+    
+    
+
+ 
+    return JsonResponse( {'hi':'hi'})
+
+
+@csrf_exempt
+def Cancel_ordr(request):
+
+    Oid = request.POST['Oid']
+    Od = Orders.objects.get(id=Oid)
+
+    Od.Taken = 0
+    Od.Confirmed = 0
+    Od.Cooked = 0
+    Od.Delivered = 0
+    Od.Recived = 0
+
+    if Od.Cancel == 1:
+        Od.Cancel = 0
+        Od.Taken = 1
+    else:
+        Od.Cancel = 1
+
+      
+            
+    
+    Od.save()
+
+    return JsonResponse({'hi': 'hi'})
