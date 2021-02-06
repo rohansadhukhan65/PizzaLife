@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # My Applications
     'Customer'
-  
+
 ]
 
 MIDDLEWARE = [
@@ -141,10 +141,8 @@ EMAIL_HOST_PASSWORD = 'vgklpqpiyptgtxks'
 
 STATIC_URL = '/static/'
 
-# added manually
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Managing Media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

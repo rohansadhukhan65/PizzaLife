@@ -164,8 +164,8 @@
                     
                   </li>
                 </ul>
-                  {%if gtotal == 0%}
-                  {%if po != 1%}
+                  {%if gtotal == 0 %}
+                  {%if po != 1 %}
                  <h1 class="text-center text-danger center ">  <i class="fas fa-cart-plus"></i> Cart  Empty ! </h1>
                  {%endif%}
                   {%else%}
@@ -338,13 +338,13 @@
 
 
 $( document ).ready(function() {
-   clearcartRun('{{gtotal}}');
+   clearcartRun('{{po}}');
 });
 
 
 function clearcartRun(val){
-  if(val == 0){
-      document.getElementById('itemss').innerHTML = `<h1 class="text-center text-danger center ">  <i class="fas fa-cart-plus"></i> Cart  Empty ! </h1>`
+  if(val == 1){
+      document.getElementById('itemss').innerHTML = `<h3 class="text-center text-success center ">  <i class="far fa-check-circle" style="font-size:30px;"></i> <br>Your Order Has Been successfull!  😊 </h3>`
    clearCart('{{name.id}}') ;
   
   }
