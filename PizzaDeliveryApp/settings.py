@@ -129,7 +129,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'contactus55555555555@gmail.com'
-EMAIL_HOST_PASSWORD = 'vgklpqpiyptgtxks'
+EMAIL_HOST_PASSWORD = 'lubuczgcvlrwafgn'
 
 
 
@@ -140,6 +140,11 @@ EMAIL_HOST_PASSWORD = 'vgklpqpiyptgtxks'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
